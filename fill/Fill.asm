@@ -34,29 +34,19 @@
         A=M
         M=0 // set screen to white
 
-        (END)
-        // increment pixel position
-        @R0
-        M=M+1
-        D=M
-
-        // D = 0 if pixel is at the end of Screen Map 
-        @KBD
-        D=D-A
-
-        // If not at end of Screen Map
-        @DRAW
-        D;JNE   // D != 0
-        // Else start from beginning of Screen Map
-        @LOOP
-        D;JEQ   // D == 0
+    (END)
+    // increment pixel position
     @R0
+    M=M+1
     D=M
+
+    // D = 0 if pixel is at the end of Screen Map 
     @KBD
     D=D-A
+
+    // If not at end of Screen Map
     @DRAW
-    D;JNE
+    D;JNE   // D != 0
+    // Else start from beginning of Screen Map
     @LOOP
-    D;JEQ
-@LOOP
-0;JMP // infinite loop
+    D;JEQ   // D == 0
