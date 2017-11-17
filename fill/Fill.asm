@@ -56,4 +56,4 @@
     @LOOP
     D;JEQ
 @LOOP
-0;JEQ // infinite loop
+0;JMP // infinite loop
