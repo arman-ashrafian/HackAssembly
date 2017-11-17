@@ -8,26 +8,26 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// Put your code here.
 (LOOP)
     @SCREEN
     D=A
     @R0
-    M=D // store screen location counter in R0
+    M=D // Store pixel counter at R0
 
-    (SCREENLOOP)
+    // Draw Loop
+    (DRAW)
         @KBD
-        D=M // set D=keyboard input
+        D=M // set D = keydown?
 
         @WHITE
-        D;JEQ // jmp to white if no key was pressed (D=0)
+        D;JEQ // if( D = 0 ): jump to WHITE
 
-        (BLACK) // else, color screen black
+        (BLACK) // else: color BLACK
         @R0
-        A=M
-        M=-1 // set screen to black
+        A=M  // go to current pixel
+        M=-1 // set pixel to black
         @END
-        0;JEQ // goto END
+        0;JMP // goto END
 
         (WHITE)
         @R0
@@ -35,12 +35,15 @@
         M=0 // set screen to white
 
         (END)
+        // increment pixel position
         @R0
         M=M+1
         D=M
+
         @KBD
         D=D-A
-        @SCREENLOOP
+
+        @DRAW
         D;JNE
         @LOOP
         D;JEQ
@@ -48,7 +51,7 @@
     D=M
     @KBD
     D=D-A
-    @SCREENLOOP
+    @DRAW
     D;JNE
     @LOOP
     D;JEQ
